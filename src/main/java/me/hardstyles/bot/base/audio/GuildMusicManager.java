@@ -10,17 +10,17 @@ import net.dv8tion.jda.api.entities.Guild;
  */
 public class GuildMusicManager {
 
-  public final AudioPlayer player;
+    public final AudioPlayer player;
 
-  public final TrackScheduler scheduler;
+    public final TrackScheduler scheduler;
 
-  public GuildMusicManager(AudioPlayerManager manager, Bot bot, Guild guild) {
-    player = manager.createPlayer();
-    scheduler = new TrackScheduler(player,bot,guild);
-    player.addListener(scheduler);
-  }
+    public GuildMusicManager(AudioPlayerManager manager, Bot bot, Guild guild) {
+        player = manager.createPlayer();
+        scheduler = new TrackScheduler(player, bot, guild);
+        player.addListener(scheduler);
+    }
 
-  public AudioPlayerSendHandler getSendHandler() {
-    return new AudioPlayerSendHandler(player);
-  }
+    public AudioPlayerSendHandler getSendHandler() {
+        return new AudioPlayerSendHandler(player);
+    }
 }

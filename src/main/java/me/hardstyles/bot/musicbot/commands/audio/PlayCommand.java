@@ -30,6 +30,11 @@ public class PlayCommand extends Command {
         System.out.println("We here babes");
 
         if (isUrlValid(a)) {
+            if(a.contains("soundcloud")){
+
+                bot.getAudioHandler().loadAndPlay(e,  a);
+                return;
+            }
             if (a.contains("&list")) {
                 if (a.contains("&list=LL&") || a.endsWith("&list=LL")) {
                     bot.getAudioHandler().loadAndPlay(e, a.split("&list")[0], true);

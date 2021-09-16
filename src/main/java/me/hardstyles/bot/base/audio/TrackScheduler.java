@@ -76,7 +76,7 @@ public class TrackScheduler extends AudioEventAdapter {
             } else {
                 if(queue.size() == 0){
                     EXECUTOR.schedule(() -> {
-                        if(queue.size() == 0 || player.getPlayingTrack() == null){
+                        if(queue.size() == 0 && player.getPlayingTrack() == null){
                             guild.getAudioManager().closeAudioConnection();
                         }
                     }, 1, TimeUnit.MINUTES);

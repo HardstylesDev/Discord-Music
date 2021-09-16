@@ -23,6 +23,10 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
 @Getter
 public class Bot {
     public static Bot instance = null;
@@ -40,7 +44,7 @@ public class Bot {
         instance = this;
 
         this.database = new Database();
-        guildManager=  new GuildManager(this);
+        guildManager = new GuildManager(this);
         formatFactory = new FormatFactory(this);
         voiceCheck = new VoiceCheck();
         registerManagers();
@@ -77,14 +81,14 @@ public class Bot {
         System.out.println("[SYSTEM]: Loading...");
         long milis = System.currentTimeMillis();
         try {
-            this.shardManager = DefaultShardManagerBuilder.createDefault("NTEwNzkxOTI3NjYzNDI3NTk0.W-bODQ.bVoaQM4YA2MVVmx4WFv_4m_8iac", GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES).setStatus(OnlineStatus.ONLINE).enableCache(CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY).setMemberCachePolicy(MemberCachePolicy.ALL).setShardsTotal(1).enableCache(CacheFlag.MEMBER_OVERRIDES).setActivity(Activity.listening("TheBlitzBot.com")).addEventListeners(new EventListener(this)).build();
+            this.shardManager = DefaultShardManagerBuilder.createDefault(getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES).setStatus(OnlineStatus.ONLINE).enableCache(CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY).setMemberCachePolicy(MemberCachePolicy.ALL).setShardsTotal(1).enableCache(CacheFlag.MEMBER_OVERRIDES).setActivity(Activity.listening("TheBlitzBot.com")).addEventListeners(new EventListener(this)).build();
             JDA jda = null;
             jda.updateCommands().queue();
         } catch (Exception ignored) {
         }
         long milis2 = System.currentTimeMillis();
         long diff = milis2 - milis;
-        System.out.println("[SYSTEM]: Blitz Beats loaded, time: " + diff + "ms");
+        System.out.println("[SYSTEM]: Bot loaded, time: " + diff + "ms");
     }
 
     public static void main(String[] args) {
@@ -92,5 +96,15 @@ public class Bot {
 
     }
 
+    private String getToken() {
+        try {
+            File file = new File("Token.txt");
+            Scanner scanner = new Scanner(file);
+            return scanner.next();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -11,7 +11,7 @@ public class PauseCommand extends Command {
     private final Bot bot;
 
     public PauseCommand(Bot bot) {
-        super("pause", Permission.ADMINISTRATOR, new String[]{"unpause"}, Category.MUSIC, "Skip to the next track", null);
+        super("pause", Permission.MESSAGE_READ, new String[]{"unpause"}, Category.MUSIC, "Skip to the next track", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
     }

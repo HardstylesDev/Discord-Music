@@ -23,16 +23,10 @@ public class PlayCommand extends Command {
 
     @Override
     public void execute(CommandContext e) {
-
         String a = e.ArgsOrOption("song");
-
-
-        System.out.println("We here babes");
-
         if (isUrlValid(a)) {
-            if(a.contains("soundcloud")){
-
-                bot.getAudioHandler().loadAndPlay(e,  a);
+            if (a.contains("soundcloud")) {
+                bot.getAudioHandler().loadAndPlay(e, a);
                 return;
             }
             if (a.contains("&list")) {
@@ -41,11 +35,9 @@ public class PlayCommand extends Command {
                 }
             } else
                 bot.getAudioHandler().loadAndPlay(e, a, true);
-            System.out.println("st");
         } else {
 
             bot.getAudioHandler().loadAndPlay(e, "ytsearch: " + a);
-            System.out.println("raw");
         }
     }
 

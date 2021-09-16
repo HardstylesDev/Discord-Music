@@ -14,7 +14,7 @@ public class BassBoostCommand extends Command {
     private final Bot bot;
 
     public BassBoostCommand(Bot bot) {
-        super("bassboost", Permission.ADMINISTRATOR, new String[]{"bb", "bass"}, Category.MUSIC, "Enable the bass booster.", null);
+        super("bassboost", Permission.MESSAGE_READ, new String[]{"bb", "bass"}, Category.MUSIC, "Enable the bass booster.", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
         this.getOptions().add(new OptionData(OptionType.INTEGER, "value", "The value of the bassbooster."));

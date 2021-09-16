@@ -11,7 +11,7 @@ public class LoopCommand extends Command {
     private final Bot bot;
 
     public LoopCommand(Bot bot) {
-        super("loop", Permission.ADMINISTRATOR, new String[]{"repeat"}, Category.MUSIC, "Keep repeating this song", null);
+        super("loop", Permission.MESSAGE_READ, new String[]{"repeat"}, Category.MUSIC, "Keep repeating this song", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
     }

@@ -11,7 +11,7 @@ public class ClearCommand extends Command {
     private final Bot bot;
 
     public ClearCommand(Bot bot) {
-        super("clear", Permission.ADMINISTRATOR, null, Category.MUSIC, "Clear the queue", null);
+        super("clear", Permission.MESSAGE_READ, null, Category.MUSIC, "Clear the queue", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
     }

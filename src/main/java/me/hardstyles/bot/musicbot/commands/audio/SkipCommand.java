@@ -10,7 +10,7 @@ public class SkipCommand extends Command {
     private final Bot bot;
 
     public SkipCommand(Bot bot) {
-        super("skip", Permission.ADMINISTRATOR, new String[]{"next"}, Category.MUSIC, "Skip to the next track", null);
+        super("skip", Permission.UNKNOWN, new String[]{"next"}, Category.MUSIC, "Skip to the next track", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
     }
@@ -22,5 +22,7 @@ public class SkipCommand extends Command {
             return;
         }
         bot.getAudioHandler().skipTrack(e);
+
+
     }
 }

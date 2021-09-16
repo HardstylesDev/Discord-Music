@@ -70,11 +70,9 @@ public class EventListener extends ListenerAdapter {
                             handleCommand(e, content, cmd);
                             break;
                         }
-
                     }
                 }
             }
-
         }
 
         if (isBotMention(e) && !author.isBot()) {
@@ -127,6 +125,7 @@ public class EventListener extends ListenerAdapter {
         CommandListUpdateAction commands = event.getJDA().updateCommands();
         for (Command cmd : bot.getCommandManager().getCommands()) {
             commands.addCommands(cmd.toCommand());
+            System.out.println(cmd.getName());
         }
         commands.queue();
 

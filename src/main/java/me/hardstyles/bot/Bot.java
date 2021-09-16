@@ -65,6 +65,7 @@ public class Bot {
         new SkipCommand(this);
         new QueueCommand(this);
         new BassBoostCommand(this);
+        new ForwardCommand(this);
 
 
     }

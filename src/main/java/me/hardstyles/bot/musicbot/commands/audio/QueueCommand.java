@@ -14,7 +14,7 @@ public class QueueCommand extends Command {
     private final Bot bot;
 
     public QueueCommand(Bot bot) {
-        super("queue", Permission.ADMINISTRATOR, new String[]{"listsongs", "songs"}, Category.MUSIC, "List the tracks in the queue", null);
+        super("queue", Permission.UNKNOWN, new String[]{"listsongs", "songs"}, Category.MUSIC, "List the tracks in the queue", null);
         this.bot = bot;
         this.getOptions().add(new OptionData(OptionType.STRING, "clear", "Clears the queue").addChoice("Clear", "Clear"));
         this.bot.getCommandManager().register(this);

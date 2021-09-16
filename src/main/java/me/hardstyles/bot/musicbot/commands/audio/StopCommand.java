@@ -11,7 +11,7 @@ public class StopCommand extends Command {
     private final Bot bot;
 
     public StopCommand(Bot bot) {
-        super("stop", Permission.ADMINISTRATOR, new String[]{"leave", "quit"}, Category.MUSIC, "Clear the queue, leave the channel.", null);
+        super("stop", Permission.UNKNOWN, new String[]{"leave", "quit"}, Category.MUSIC, "Clear the queue, leave the channel.", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
     }

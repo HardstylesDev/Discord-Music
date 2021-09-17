@@ -4,6 +4,7 @@ import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.audio.GuildMusicManager;
 import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
+import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
@@ -40,13 +41,15 @@ public class EventListener extends ListenerAdapter {
     @Override
     public final void onGuildMessageReceived(final @NotNull GuildMessageReceivedEvent e) {
         final Guild guild = e.getGuild();
-        final String prefix = bot.getPrefixManager().getPrefix(guild);
+        GuildObj guildObj = bot.getGuildManager().getGuildFromId(guild.getId());
+
+        final String prefix = guildObj.getPrefix();
         final User author = e.getAuthor();
         final Message message = e.getMessage();
         if ((message.getContentRaw().startsWith(prefix) && !author.isBot())) {
             String content;
             if (!message.getMentionedMembers().isEmpty() && message.getContentRaw().split(" ")[0].equalsIgnoreCase(message.getMentionedMembers().get(0).getAsMention())) {
-                content = message.getContentRaw().substring(message.getMentionedMembers().get(0).getAsMention().length() + 1);
+                content = message.getContentRaw().substring(message.getMentionedMembers().get(0).getAsMention().length() );
             } else {
                 content = message.getContentRaw().substring(prefix.length());
             }
@@ -90,9 +93,7 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public final void onSlashCommand(final @NotNull SlashCommandEvent event) {
-        for (OptionMapping option : event.getOptions()) {
-            System.out.println("option: " + option.getName());
-        }
+
         for (Command command : bot.getCommandManager().getCommands()) {
 
             if (command.getName().equalsIgnoreCase(event.getName())) {
@@ -120,7 +121,7 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public final void onReady(ReadyEvent event) {
-        bot.getGuildManager().loadGuilds();
+
         System.out.println("Ready event called.");
         CommandListUpdateAction commands = event.getJDA().updateCommands();
         for (Command cmd : bot.getCommandManager().getCommands()) {

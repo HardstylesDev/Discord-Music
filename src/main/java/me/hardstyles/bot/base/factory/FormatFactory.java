@@ -12,7 +12,6 @@ public class FormatFactory {
 
     public String formatDate(double milis) {
         String dd = DurationFormatUtils.formatDuration((long) milis, "H:mm:ss", true);
-        System.out.println("" + dd);
         if(dd.startsWith("0:")) {
             return dd.substring(2);
         }

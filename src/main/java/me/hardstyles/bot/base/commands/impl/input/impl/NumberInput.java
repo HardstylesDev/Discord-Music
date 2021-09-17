@@ -25,12 +25,10 @@ public class NumberInput extends Input {
                 try {
                     return Double.parseDouble(cxt.getArgs()[position - 1]);
                 } catch (Exception e) {
-                    System.out.println("ex");
                     return -9999;
                 }
             }
         }
-        System.out.println("default");
         return -9999;
 
     }

@@ -23,4 +23,9 @@ public class PrefixSetting extends Setting {
     public String get() {
         return this.prefix;
     }
+
+    @Override
+    public String defaultValue(){
+        return ".";
+    }
 }

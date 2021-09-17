@@ -3,12 +3,11 @@ package me.hardstyles.bot;
 import lombok.Getter;
 import me.hardstyles.bot.base.audio.CustomAudioHandler;
 import me.hardstyles.bot.base.commands.CommandManager;
-import me.hardstyles.bot.base.configuration.PrefixManager;
-import me.hardstyles.bot.base.database.Database;
+
 import me.hardstyles.bot.base.factory.EmbedFactory;
 import me.hardstyles.bot.base.factory.FormatFactory;
 import me.hardstyles.bot.base.guild.GuildManager;
-import me.hardstyles.bot.base.guild.guildSettings.GuildSettingsHandler;
+import me.hardstyles.bot.base.guild.GuildSettingsHandler;
 import me.hardstyles.bot.base.util.VoiceCheck;
 import me.hardstyles.bot.musicbot.commands.admin.AvatarCommand;
 import me.hardstyles.bot.musicbot.commands.misc.HelpCommand;
@@ -35,10 +34,9 @@ import java.util.Scanner;
 public class Bot {
     public static Bot instance = null;
     private CommandManager commandManager;
-    private PrefixManager prefixManager;
+
     private EmbedFactory embedFactory;
     private CustomAudioHandler audioHandler;
-    private Database database;
     private ShardManager shardManager;
     private GuildManager guildManager;
     private VoiceCheck voiceCheck;
@@ -49,14 +47,11 @@ public class Bot {
     public Bot() {
         instance = this;
 
-        this.database = new Database();
         guildManager = new GuildManager(this);
         formatFactory = new FormatFactory(this);
         voiceCheck = new VoiceCheck();
         registerManagers();
 
-
-        prefixManager.loadPrefixes();
         startBot();
 
 
@@ -72,6 +67,7 @@ public class Bot {
         new QueueCommand(this);
         new BassBoostCommand(this);
         new ForwardCommand(this);
+        new VolumeCommand(this);
 
         new PingCommand(this);
         new AvatarCommand(this);
@@ -84,7 +80,6 @@ public class Bot {
 
     private void registerManagers() {
         commandManager = new CommandManager(this);
-        prefixManager = new PrefixManager(this);
         embedFactory = new EmbedFactory(this);
         audioHandler = new CustomAudioHandler(this);
     }

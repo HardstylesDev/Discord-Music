@@ -6,7 +6,7 @@ import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.audio.GuildMusicManager;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
 import me.hardstyles.bot.base.guild.ChatType;
-import me.hardstyles.bot.base.guild.Guild;
+import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
@@ -58,7 +58,7 @@ public class EmbedFactory {
 
     public void added(CommandContext msg, AudioTrack audioTrack) {
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
-        Guild guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+        GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         if (guild.getChatType() == ChatType.DEFAULT) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setThumbnail("https://img.youtube.com/vi/" + audioTrack.getIdentifier() + "/hqdefault.jpg");
@@ -74,7 +74,6 @@ public class EmbedFactory {
             msg.reply(embedBuilder.build()).queue();
             return;
         } else if (guild.getChatType() == ChatType.SIMPLE) {
-            System.out.println("simple");
             msg.reply("" + msg.getUser().getAsMention() + " added **" + audioTrack.getInfo().title + "** to the queue").queue();
             return;
         } else if (guild.getChatType() == ChatType.REACTION) {
@@ -135,7 +134,7 @@ public class EmbedFactory {
     }
 
     public void stopped(CommandContext msg) {
-        Guild guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+        GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         if (guild.getChatType() == ChatType.DEFAULT) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
 
@@ -155,7 +154,7 @@ public class EmbedFactory {
     }
 
     public void leave(CommandContext msg) {
-        Guild guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+        GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         if (guild.getChatType() == ChatType.DEFAULT) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("I left!");
@@ -170,7 +169,7 @@ public class EmbedFactory {
     }
 
     public void nothingInQueue(CommandContext msg) {
-        Guild guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+        GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         if (guild.getChatType() == ChatType.DEFAULT) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Queue is empty!");
@@ -185,7 +184,7 @@ public class EmbedFactory {
     }
 
     public void pause(CommandContext msg, boolean paused) {
-        Guild guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+        GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
         if (guild.getChatType() == ChatType.DEFAULT) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -204,7 +203,7 @@ public class EmbedFactory {
 
     public void skippingTrack(CommandContext msg) {
 
-        Guild guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+        GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
         if (guild.getChatType() == ChatType.DEFAULT) {
             EmbedBuilder embedBuilder = new EmbedBuilder();

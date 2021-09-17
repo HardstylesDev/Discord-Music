@@ -4,6 +4,7 @@ import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
+import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -22,20 +23,24 @@ public class PrefixCommand extends Command {
 
     @Override
     public void execute(CommandContext e) {
+        GuildObj obj = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
 
         if (e.getArgs().length == 0 && !e.hasInput("new_prefix")) {
             EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
             builder.setTitle("Prefix for " + e.getGuild().getName());
-            builder.setDescription("The current prefix is " + bot.getPrefixManager().getPrefix(e.getGuild()));
+            builder.setDescription("The current prefix is " + obj.getPrefix());
             e.reply(builder.build()).queue();
             return;
         }
 
         String newPrefix = e.isSlash() ? e.textInput("new_prefix") : e.getArgs()[0];
-        bot.getPrefixManager().setPrefix(e.getGuild(), newPrefix);
+
+        obj.setPrefix(newPrefix);
+
         EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
         builder.setTitle("Prefix updated! ");
         builder.setDescription("The new prefix is `" + newPrefix + "`");
+        bot.getGuildSettingsHandler().write();
         e.reply(builder.build()).queue();
     }
 }

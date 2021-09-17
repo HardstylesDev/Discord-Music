@@ -19,12 +19,11 @@ public class TestCommand extends Command {
     @Override
     public void execute(CommandContext e) {
 
-        GuildObj o = bot.getGuildManager().getGuildObj(e.getGuild().getId());
+        GuildObj o = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
         if (o == null) {
-            bot.getGuildSettingsHandler().read(e.getGuild().getId());
+            bot.getGuildSettingsHandler().read();
         }
-        GuildObj guildObj = bot.getGuildManager().getGuildObj(e.getGuild().getId());
-        System.out.println("ID: " + guildObj.getId());
+        GuildObj guildObj = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
         e.reply("test value: " + guildObj.getPrefix()).queue();
     }
 

@@ -5,7 +5,7 @@ import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
 import me.hardstyles.bot.base.guild.ChatType;
-import me.hardstyles.bot.base.guild.Guild;
+import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -29,7 +29,7 @@ public class SettingsCommand extends Command {
     @Override
     public void execute(CommandContext e) {
 
-        Guild guild = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
+        GuildObj guild = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
         if (e.getArgs().length == 0 && !e.hasInput("chat_type")) {
             EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
             builder.setTitle("Settings" + e.getGuild().getName());
@@ -42,8 +42,8 @@ public class SettingsCommand extends Command {
         EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
         builder.setTitle("Chat Type updated! ");
         builder.setDescription("The new ChatType has been set to `" + type + "`");
-        guild.getGuildJson().addProperty("ChatType", ChatType.valueOf(type.toUpperCase()) + "");
-        bot.getGuildManager().update(e.getGuild().getId(), guild.getGuildJson());
+        guild.setChatType(ChatType.valueOf(type.toUpperCase()) + "");
+        bot.getGuildSettingsHandler().write();
         e.reply(builder.build()).queue();
     }
 }

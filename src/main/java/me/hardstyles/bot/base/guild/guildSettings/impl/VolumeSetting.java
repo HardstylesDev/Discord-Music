@@ -22,4 +22,9 @@ public class VolumeSetting extends Setting{
     public String get(){
         return this.volume;
     }
+
+    @Override
+    public String defaultValue(){
+        return "100";
+    }
 }

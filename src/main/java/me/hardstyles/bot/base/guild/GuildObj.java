@@ -41,6 +41,7 @@ public class GuildObj {
         settings.addAll(Arrays.asList(prefixSetting, chatTypeSetting, volumeSetting));
 
 
+        System.out.println("New guild object initialized!!!");
     }
 
     public String getPrefix() {
@@ -55,7 +56,7 @@ public class GuildObj {
         return Double.parseDouble(volumeSetting.get());
     }
 
-    public void setvolume(double vol) {
+    public void setVolume(double vol) {
         this.volumeSetting.set("" + vol);
     }
 

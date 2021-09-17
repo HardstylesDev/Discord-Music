@@ -91,7 +91,6 @@ public class CustomAudioHandler {
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                System.out.println("wtf is this shit");
                 bot.getEmbedFactory().added(msg, track);
                 play(musicManager, track);
             }
@@ -99,7 +98,6 @@ public class CustomAudioHandler {
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
                 AudioTrack firstTrack = playlist.getSelectedTrack();
-                System.out.println("wtf is this shit");
                 if (firstTrack == null) {
                     firstTrack = playlist.getTracks().get(0);
                 }
@@ -110,9 +108,7 @@ public class CustomAudioHandler {
                     play(musicManager, firstTrack);
                     playlistTracks.remove(firstTrack);
                     playlist.getTracks().forEach(audioTrack -> play(musicManager, audioTrack));
-                    msg.reply("wtaaaaa").queue();
                     msg.reply(bot.getEmbedFactory().addedPlaylist(msg, playlist).build()).queue();
-                    msg.reply("wtaaddddddaaa").queue();
 
 
                 } else {

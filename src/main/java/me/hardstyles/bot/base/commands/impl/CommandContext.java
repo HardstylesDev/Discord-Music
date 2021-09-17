@@ -119,6 +119,7 @@ public class CommandContext {
     }
 
     public String fullArgs() {
+        if(getArgs().length == 0 ) return null;
         StringBuilder builder = new StringBuilder(getArgs()[0]);
         for (int i = 1; i < args.length; i++) {
             builder.append(" ").append(getArgs()[i]);

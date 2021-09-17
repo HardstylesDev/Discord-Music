@@ -21,4 +21,10 @@ public class ChatTypeSetting extends Setting{
     public String get(){
         return this.chatType;
     }
+
+    @Override
+    public String defaultValue(){
+        return "DEFAULT";
+    }
+
 }

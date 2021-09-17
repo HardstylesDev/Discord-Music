@@ -21,4 +21,9 @@ public class Setting {
     public String get() {
         return null;
     }
+
+
+    public String defaultValue(){
+        return "";
+    }
 }

@@ -1,4 +1,4 @@
-package me.hardstyles.bot.musicbot.commands;
+package me.hardstyles.bot.musicbot.commands.misc;
 
 import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.commands.impl.Category;

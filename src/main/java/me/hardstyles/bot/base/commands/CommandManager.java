@@ -3,6 +3,7 @@ package me.hardstyles.bot.base.commands;
 
 import lombok.Getter;
 import me.hardstyles.bot.Bot;
+import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
 
 import java.util.HashSet;
@@ -19,6 +20,16 @@ public class CommandManager {
 
 
 
+    }
+
+    public final HashSet<Command> get(Category c){
+        HashSet<Command> cmd = new HashSet<>();
+        for (Command command : commands) {
+            if(command.getCategory() == c){
+                cmd.add(command);
+            }
+        }
+        return cmd;
     }
     public void register(Command command){
         this.commands.add(command);

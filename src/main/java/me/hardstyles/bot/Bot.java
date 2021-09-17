@@ -9,7 +9,10 @@ import me.hardstyles.bot.base.factory.EmbedFactory;
 import me.hardstyles.bot.base.factory.FormatFactory;
 import me.hardstyles.bot.base.guild.GuildManager;
 import me.hardstyles.bot.base.util.VoiceCheck;
-import me.hardstyles.bot.musicbot.commands.TestCommand;
+import me.hardstyles.bot.musicbot.commands.admin.AvatarCommand;
+import me.hardstyles.bot.musicbot.commands.misc.HelpCommand;
+import me.hardstyles.bot.musicbot.commands.misc.PingCommand;
+import me.hardstyles.bot.musicbot.commands.misc.TestCommand;
 import me.hardstyles.bot.musicbot.commands.admin.PrefixCommand;
 import me.hardstyles.bot.musicbot.commands.admin.SettingsCommand;
 import me.hardstyles.bot.musicbot.commands.audio.*;
@@ -66,6 +69,10 @@ public class Bot {
         new QueueCommand(this);
         new BassBoostCommand(this);
         new ForwardCommand(this);
+
+        new PingCommand(this);
+        new AvatarCommand(this);
+        new HelpCommand(this);
 
 
     }

@@ -6,6 +6,7 @@ import me.hardstyles.bot.base.audio.GuildMusicManager;
 import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
+import me.hardstyles.bot.base.commands.impl.input.impl.NumberInput;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -28,37 +29,27 @@ public class ForwardCommand extends Command {
             e.reply(bot.getEmbedFactory().error(e, "You're not in the same channel as me, so you can't execute this.").build()).queue();
             return;
         }
+        GuildMusicManager guildMusicManager = bot.getAudioHandler().getMusicManagers().get(e.getGuild().getIdLong());
 
-        if (e.getArgs().length == 0 && !e.hasInput("value")) {
+        NumberInput numberInput = new NumberInput(e, 1);
+        double input = numberInput.value("value");
 
+        if (input == -9999 || input == 0) {
+            guildMusicManager.player.setFilterFactory(null);
             e.reply("Please give a valid amount of seconds to skip to!").queue();
             return;
         }
-
-
-        float value;
-        if (e.hasInput("value")) {
-            value = e.intInput("value");
-        } else {
-            value = Float.parseFloat(e.getArgs()[0]);
-        }
-        value = value * 1000;
-
-
-        GuildMusicManager guildMusicManager = bot.getAudioHandler().getMusicManagers().get(e.getGuild().getIdLong());
         AudioTrack track = guildMusicManager.player.getPlayingTrack();
-
         if(track == null){
             e.reply("There's no track playing.").queue();
             return;
         }
-        if(track.getDuration() < value){
+        if(track.getDuration() < input * 1000){
             e.reply("Given value is longer then the track itself.").queue();
             return;
         }
-
-        guildMusicManager.player.getPlayingTrack().setPosition((long) value);
-        e.reply("Succesfully set the position of the player to " + value).queue();
+        guildMusicManager.player.getPlayingTrack().setPosition((long) input * 1000);
+        e.reply("Succesfully set the position of the player to " + input).queue();
 
     }
 

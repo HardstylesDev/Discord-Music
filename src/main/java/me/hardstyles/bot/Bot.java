@@ -8,6 +8,7 @@ import me.hardstyles.bot.base.database.Database;
 import me.hardstyles.bot.base.factory.EmbedFactory;
 import me.hardstyles.bot.base.factory.FormatFactory;
 import me.hardstyles.bot.base.guild.GuildManager;
+import me.hardstyles.bot.base.guild.guildSettings.GuildSettingsHandler;
 import me.hardstyles.bot.base.util.VoiceCheck;
 import me.hardstyles.bot.musicbot.commands.admin.AvatarCommand;
 import me.hardstyles.bot.musicbot.commands.misc.HelpCommand;
@@ -43,6 +44,8 @@ public class Bot {
     private VoiceCheck voiceCheck;
     private FormatFactory formatFactory;
 
+    private GuildSettingsHandler guildSettingsHandler;
+
     public Bot() {
         instance = this;
 
@@ -74,6 +77,7 @@ public class Bot {
         new AvatarCommand(this);
         new HelpCommand(this);
 
+        this.guildSettingsHandler = new GuildSettingsHandler(this);
 
     }
 

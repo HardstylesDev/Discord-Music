@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.Getter;
 import me.hardstyles.bot.Bot;
 
 import java.sql.Connection;
@@ -13,15 +14,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+
 public class GuildManager {
 
     private HashSet<Guild> guilds;
-
+    @Getter
+    private HashSet<GuildObj> newGuilds;
     private final Bot bot;
 
     public GuildManager(Bot bot) {
         this.bot = bot;
         guilds = new HashSet<>();
+        this.newGuilds = new HashSet<>();
 
     }
 
@@ -33,6 +37,13 @@ public class GuildManager {
         return null;
     }
 
+    public GuildObj getGuildObj(String id){
+        for (GuildObj newGuild : newGuilds) {
+            if(newGuild.getId().equalsIgnoreCase(id))
+                return newGuild;
+        }
+        return null;
+    }
     public void loadGuilds() {
         try {
             ArrayList<Long> checkedGuildIds = new ArrayList<>();

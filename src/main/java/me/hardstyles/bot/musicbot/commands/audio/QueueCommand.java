@@ -33,12 +33,13 @@ public class QueueCommand extends Command {
                 return;
             }
             StringBuilder builder = new StringBuilder();
+            builder.append(s.player.getPlayingTrack().getInfo().title);
             String p = bot.getFormatFactory().getProgressBar(s.player.getPlayingTrack().getPosition(), s.player.getPlayingTrack().getDuration(), 20, "<:yt_red:639530265403981824>", "<:yt_gray:639530265383010324>", "<:yt_ball:639530265399787530>");
             builder.append("\n").append(p);
             builder.append("\n").append(bot.getFormatFactory().formatDate(s.player.getPlayingTrack().getPosition())).append(" / ").append(bot.getFormatFactory().formatDate(s.player.getPlayingTrack().getDuration()));
             builder.append("\n");
             int index = 1;
-            long totalDuration = s.player.getPlayingTrack().getPosition();
+            long totalDuration = s.player.getPlayingTrack().getDuration() - s.player.getPlayingTrack().getPosition();
             for (AudioTrack audioTrack : s.scheduler.getQueue()) {
                 builder.append(String.format("\n`%s` %s (%s)", index, audioTrack.getInfo().title, bot.getFormatFactory().formatDate(audioTrack.getDuration())));
                 index++;

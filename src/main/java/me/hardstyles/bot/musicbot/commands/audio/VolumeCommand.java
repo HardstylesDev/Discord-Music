@@ -24,7 +24,10 @@ public class VolumeCommand extends Command {
 
     @Override
     public void execute(CommandContext e) {
-
+        if (bot.getVoiceCheck().voiceCheck(e.getMember())) {
+            e.reply(bot.getEmbedFactory().error(e, "You're not in the same channel as me, so you can't execute this.").build()).queue();
+            return;
+        }
         GuildMusicManager guildMusicManager = bot.getAudioHandler().getMusicManagers().get(e.getGuild().getIdLong());
 
         NumberInput numberInput = new NumberInput(e, 1);

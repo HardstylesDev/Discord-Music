@@ -27,7 +27,7 @@ public class CustomAudioHandler {
 
     public CustomAudioHandler(Bot bot) {
         this.bot = bot;
-
+        playerManager.getConfiguration().setFilterHotSwapEnabled(true);
         AudioSourceManagers.registerRemoteSources(playerManager);
         AudioSourceManagers.registerLocalSource(playerManager);
         this.equalizer = new EqualizerFactory();
@@ -87,6 +87,7 @@ public class CustomAudioHandler {
         }
 
         GuildMusicManager musicManager = getGuildAudioPlayer(msg.getGuild());
+        musicManager.player.setFilterFactory(null);
 
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override

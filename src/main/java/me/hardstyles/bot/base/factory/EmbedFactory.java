@@ -60,7 +60,7 @@ public class EmbedFactory {
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
         GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         if (guild.getChatType() == ChatType.DEFAULT) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
+            EmbedBuilder embedBuilder = this.coloredEmbed(msg.getGuild());
             embedBuilder.setThumbnail("https://img.youtube.com/vi/" + audioTrack.getIdentifier() + "/hqdefault.jpg");
             embedBuilder.setTitle("Track added");
 
@@ -70,7 +70,6 @@ public class EmbedFactory {
                     "\n`•` Position: **" + (s.scheduler.getQueue().size() + 1) + "**" +
                     "\n`•` Requested by: **" + msg.getUser().getAsMention() + "**";
             embedBuilder.setDescription(stringBuilder);
-            embedBuilder.setColor(fromGuild(msg.getGuild()));
             msg.reply(embedBuilder.build()).queue();
             return;
         } else if (guild.getChatType() == ChatType.SIMPLE) {
@@ -84,14 +83,13 @@ public class EmbedFactory {
 
     public EmbedBuilder addedPlaylist(CommandContext msg, AudioPlaylist audioTrack) {
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+        EmbedBuilder embedBuilder = this.coloredEmbed(msg.getGuild());
         embedBuilder.setTitle("Playlist added");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\nAdded " + audioTrack.getTracks().size() + " tracks to the queue!");
         stringBuilder.append("\n\n`•` Requested by: " + msg.getUser().getAsMention());
         embedBuilder.setDescription(stringBuilder.toString());
 
-        embedBuilder.setColor(fromGuild(msg.getGuild()));
         return embedBuilder;
     }
 
@@ -126,17 +124,16 @@ public class EmbedFactory {
     }
 
     public EmbedBuilder msg(CommandContext ctx, String title, String message) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+        EmbedBuilder embedBuilder = this.coloredEmbed(ctx.getGuild());
         embedBuilder.setTitle(title);
         embedBuilder.setDescription(message);
-        embedBuilder.setColor(fromGuild(ctx.getGuild()));
         return embedBuilder;
     }
 
     public void stopped(CommandContext msg) {
         GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         if (guild.getChatType() == ChatType.DEFAULT) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
+            EmbedBuilder embedBuilder = this.coloredEmbed(msg.getGuild());
 
             embedBuilder.setTitle("Stopped");
             embedBuilder.setDescription("Stopped the player and cleared the queue!" +
@@ -171,11 +168,10 @@ public class EmbedFactory {
     public void nothingInQueue(CommandContext msg) {
         GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         if (guild.getChatType() == ChatType.DEFAULT) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
+            EmbedBuilder embedBuilder = this.coloredEmbed(msg.getGuild());
             embedBuilder.setTitle("Queue is empty!");
             embedBuilder.setDescription("There's nothing in the queue, therefore I can't skip!" +
                     "\n\n`•` Requested by:" + msg.getUser().getAsMention());
-            embedBuilder.setColor(fromGuild(msg.getGuild()));
             msg.reply(embedBuilder.build()).queue();
         } else if (guild.getChatType() == ChatType.SIMPLE || guild.getChatType() == ChatType.REACTION) {
             msg.reply("" + msg.getUser().getAsMention() + " The queue is empty, can't skip!").queue();
@@ -206,10 +202,9 @@ public class EmbedFactory {
         GuildObj guild = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
         if (guild.getChatType() == ChatType.DEFAULT) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
+            EmbedBuilder embedBuilder = this.coloredEmbed(msg.getGuild());
             embedBuilder.setTitle("Skipped track!");
             embedBuilder.setDescription("Skipped track! Now playing **" + s.scheduler.getNextInLine().getInfo().title + "**\n\nSkipped by: " + msg.getUser().getAsMention());
-            embedBuilder.setColor(fromGuild(msg.getGuild()));
             msg.reply(embedBuilder.build()).queue();
         } else if (guild.getChatType() == ChatType.SIMPLE) {
             msg.reply("" + msg.getUser().getAsMention() + "skipped a track! Now playing **" + s.scheduler.getNextInLine().getInfo().title + "**").queue();

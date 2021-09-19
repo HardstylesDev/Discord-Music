@@ -3,19 +3,18 @@ package me.hardstyles.bot;
 import lombok.Getter;
 import me.hardstyles.bot.base.audio.CustomAudioHandler;
 import me.hardstyles.bot.base.commands.CommandManager;
-
 import me.hardstyles.bot.base.factory.EmbedFactory;
 import me.hardstyles.bot.base.factory.FormatFactory;
 import me.hardstyles.bot.base.guild.GuildManager;
 import me.hardstyles.bot.base.guild.GuildSettingsHandler;
 import me.hardstyles.bot.base.util.VoiceCheck;
 import me.hardstyles.bot.musicbot.commands.admin.AvatarCommand;
-import me.hardstyles.bot.musicbot.commands.misc.HelpCommand;
-import me.hardstyles.bot.musicbot.commands.misc.PingCommand;
-import me.hardstyles.bot.musicbot.commands.misc.TestCommand;
 import me.hardstyles.bot.musicbot.commands.admin.PrefixCommand;
 import me.hardstyles.bot.musicbot.commands.admin.SettingsCommand;
 import me.hardstyles.bot.musicbot.commands.audio.*;
+import me.hardstyles.bot.musicbot.commands.misc.HelpCommand;
+import me.hardstyles.bot.musicbot.commands.misc.PingCommand;
+import me.hardstyles.bot.musicbot.commands.misc.TestCommand;
 import me.hardstyles.bot.musicbot.event.EventListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -68,7 +67,8 @@ public class Bot {
         new BassBoostCommand(this);
         new ForwardCommand(this);
         new VolumeCommand(this);
-
+        new SpeedCommand(this);
+//new VibratoCommand(this);
         new PingCommand(this);
         new AvatarCommand(this);
         new HelpCommand(this);

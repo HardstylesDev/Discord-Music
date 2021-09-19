@@ -87,7 +87,7 @@ public class CustomAudioHandler {
         }
 
         GuildMusicManager musicManager = getGuildAudioPlayer(msg.getGuild());
-        musicManager.player.setFilterFactory(null);
+       //musicManager.player.setFilterFactory(null);
 
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override

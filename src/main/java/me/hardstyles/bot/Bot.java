@@ -7,6 +7,7 @@ import me.hardstyles.bot.base.factory.EmbedFactory;
 import me.hardstyles.bot.base.factory.FormatFactory;
 import me.hardstyles.bot.base.guild.GuildManager;
 import me.hardstyles.bot.base.guild.GuildSettingsHandler;
+import me.hardstyles.bot.base.spotify.SpotifyAPI;
 import me.hardstyles.bot.base.util.VoiceCheck;
 import me.hardstyles.bot.musicbot.commands.admin.AvatarCommand;
 import me.hardstyles.bot.musicbot.commands.admin.PrefixCommand;
@@ -40,12 +41,13 @@ public class Bot {
     private GuildManager guildManager;
     private VoiceCheck voiceCheck;
     private FormatFactory formatFactory;
+    private SpotifyAPI spotifyApi;
 
     private GuildSettingsHandler guildSettingsHandler;
 
     public Bot() {
         instance = this;
-
+        spotifyApi = new SpotifyAPI(this);
         guildManager = new GuildManager(this);
         formatFactory = new FormatFactory(this);
         voiceCheck = new VoiceCheck();
@@ -74,6 +76,8 @@ public class Bot {
         new HelpCommand(this);
 
         this.guildSettingsHandler = new GuildSettingsHandler(this);
+
+
 
     }
 

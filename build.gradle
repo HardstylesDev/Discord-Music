@@ -18,7 +18,11 @@ repositories {
     }
 
 }
-
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
@@ -28,6 +32,7 @@ dependencies {
     implementation "com.google.guava:guava:29.0-jre"
 
     compile group: 'com.github.Walkyst', name: 'lavaplayer-fork', version: '3a54cbd43b'
+    compile 'com.github.thelinmichael:spotify-web-api-java:master-SNAPSHOT'
 
     compile 'com.github.natanbc:lavadsp:0.7.6'
     compile "com.github.natanbc:native-loader:0.7.0"

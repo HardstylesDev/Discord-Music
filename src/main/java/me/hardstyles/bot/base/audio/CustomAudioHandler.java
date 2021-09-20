@@ -87,7 +87,7 @@ public class CustomAudioHandler {
         }
 
         GuildMusicManager musicManager = getGuildAudioPlayer(msg.getGuild());
-       //musicManager.player.setFilterFactory(null);
+        //musicManager.player.setFilterFactory(null);
 
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
@@ -160,6 +160,56 @@ public class CustomAudioHandler {
         this.pauseTrack(msg, !musicManager.player.isPaused());
     }
 
+
+    public void loadPlaylist(final CommandContext msg, final String[] titles) {
+        System.out.println("Called with " + titles.length + " titles");
+        if (!msg.getGuild().getAudioManager().isConnected() && !msg.getGuild().getAudioManager().isAttemptingToConnect()) {
+            if (msg.getMember().getVoiceState().getChannel() == null) {
+                msg.reply(bot.getEmbedFactory().simple(msg.getGuild(), "Not connected", "You're not connected to a channel!").build()).queue();
+                return;
+            }
+            if (!msg.getGuild().getSelfMember().hasPermission(msg.getMember().getVoiceState().getChannel(), Permission.VOICE_CONNECT)) {
+                msg.reply(bot.getEmbedFactory().msg(msg, "Can't connect", "I'm not allowed to join your voice channel!").build()).queue();
+                return;
+            }
+            msg.getGuild().getAudioManager().openAudioConnection(msg.getMember().getVoiceState().getChannel());
+        }
+
+        GuildMusicManager musicManager = getGuildAudioPlayer(msg.getGuild());
+
+
+        String searchType = "ytsearch: ";
+        for (String trackUrl : titles) {
+            playerManager.loadItemOrdered(musicManager, searchType+trackUrl, new AudioLoadResultHandler() {
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                    msg.reply(bot.getEmbedFactory().addedPlaylist(msg, titles).build()).queue();
+                    play(musicManager, track);
+                }
+
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+                    AudioTrack firstTrack = playlist.getSelectedTrack();
+                    if (firstTrack == null) {
+                        firstTrack = playlist.getTracks().get(0);
+                    }
+                    play(musicManager, firstTrack);
+                }
+
+                @Override
+                public void noMatches() {
+                    msg.reply("Nothing found by " + trackUrl).queue();
+                }
+
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    msg.reply("Could not play: " + exception.getMessage()).queue();
+                    exception.printStackTrace();
+                }
+            });
+        }
+
+    }
 
     /**
      * Pause the current track

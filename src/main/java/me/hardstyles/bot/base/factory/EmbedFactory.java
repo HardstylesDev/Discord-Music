@@ -85,14 +85,22 @@ public class EmbedFactory {
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
         EmbedBuilder embedBuilder = this.coloredEmbed(msg.getGuild());
         embedBuilder.setTitle("Playlist added");
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\nAdded " + audioTrack.getTracks().size() + " tracks to the queue!");
-        stringBuilder.append("\n\n`•` Requested by: " + msg.getUser().getAsMention());
-        embedBuilder.setDescription(stringBuilder.toString());
+        String stringBuilder = "\nAdded " + audioTrack.getTracks().size() + " tracks to the queue!" +
+                "\n\n`•` Requested by: " + msg.getUser().getAsMention();
+        embedBuilder.setDescription(stringBuilder);
 
         return embedBuilder;
     }
+    public EmbedBuilder addedPlaylist(CommandContext msg, String[] audioTrack) {
+        GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(msg.getGuild().getIdLong());
+        EmbedBuilder embedBuilder = this.coloredEmbed(msg.getGuild());
+        embedBuilder.setTitle("Playlist added");
+        String stringBuilder = "\nAdded " + audioTrack.length + " tracks to the queue!" +
+                "\n\n`•` Requested by: " + msg.getUser().getAsMention();
+        embedBuilder.setDescription(stringBuilder);
 
+        return embedBuilder;
+    }
     public EmbedBuilder noLongerLooping(CommandContext msg, AudioTrack audioTrack) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("No longer looping");

@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.apache.commons.validator.routines.UrlValidator;
 
+import java.util.ArrayList;
+
 public class PlayCommand extends Command {
     private final Bot bot;
 
@@ -25,6 +27,25 @@ public class PlayCommand extends Command {
     public void execute(CommandContext e) {
         String a = e.ArgsOrOption("song");
         if (isUrlValid(a)) {
+            if (a.contains("open.spotify")) {
+                if (a.contains("spotify.com/playlist")) {
+                    String[] urlA = a.split("/");
+                    String listId = urlA[urlA.length - 1].split("\\?")[0];
+
+                    ArrayList<String> items = bot.getSpotifyApi().fuck(listId);
+
+                    bot.getAudioHandler().loadPlaylist(e, items.toArray(new String[0]));
+                    e.reply(bot.getEmbedFactory().addedPlaylist(e, items.toArray(new String[0])).build()).queue();
+                    return;
+                }
+
+                String[] urlA = a.split("/");
+                String trackID = urlA[urlA.length - 1].split("\\?")[0];
+                String search = bot.getSpotifyApi().simpleTrack(trackID);
+                bot.getAudioHandler().loadAndPlay(e, "ytsearch: " + search);
+                return;
+            }
+
             if (a.contains("soundcloud")) {
                 bot.getAudioHandler().loadAndPlay(e, a);
                 return;
@@ -36,6 +57,7 @@ public class PlayCommand extends Command {
             } else
                 bot.getAudioHandler().loadAndPlay(e, a, true);
         } else {
+
 
             bot.getAudioHandler().loadAndPlay(e, "ytsearch: " + a);
         }

@@ -74,7 +74,7 @@ public class Bot {
         new PingCommand(this);
         new AvatarCommand(this);
         new HelpCommand(this);
-
+new ShuffleCommand(this);
         this.guildSettingsHandler = new GuildSettingsHandler(this);
 
 

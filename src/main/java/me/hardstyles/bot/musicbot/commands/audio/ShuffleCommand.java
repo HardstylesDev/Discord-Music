@@ -17,7 +17,7 @@ public class ShuffleCommand extends Command {
     public ShuffleCommand(Bot bot) {
         super("shuffle", Permission.MESSAGE_READ, new String[]{"shuff"}, Category.MUSIC, "Skip to the next track", null);
         this.bot = bot;
-        this.bot.getCommandManager().register(this);
+        bot.getCommandManager().register(this);
     }
 
     @Override

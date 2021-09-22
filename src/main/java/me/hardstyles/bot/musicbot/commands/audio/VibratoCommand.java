@@ -1,9 +1,8 @@
 package me.hardstyles.bot.musicbot.commands.audio;
 
-import com.github.natanbc.lavadsp.karaoke.KaraokePcmAudioFilter;
 import com.github.natanbc.lavadsp.lowpass.LowPassPcmAudioFilter;
 import com.github.natanbc.lavadsp.timescale.TimescalePcmAudioFilter;
-import com.sedmelluq.discord.lavaplayer.filter.FloatPcmAudioFilter;
+import com.sedmelluq.discord.lavaplayer.filter.FilterChainBuilder;
 import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.audio.GuildMusicManager;
 import me.hardstyles.bot.base.commands.impl.Category;
@@ -13,8 +12,6 @@ import me.hardstyles.bot.base.commands.impl.input.impl.NumberInput;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-
-import java.util.Collections;
 
 public class VibratoCommand extends Command {
     private final Bot bot;
@@ -48,17 +45,19 @@ public class VibratoCommand extends Command {
         }
 
 
+        ;
         guildMusicManager.player.setFilterFactory((track, format, output) -> {
+            FilterChainBuilder builder = new FilterChainBuilder();
+            LowPassPcmAudioFilter lowPass = new LowPassPcmAudioFilter(output, format.channelCount, format.sampleRate);
+            lowPass.setSmoothing(6f);
+            TimescalePcmAudioFilter timeFilter = new TimescalePcmAudioFilter(output, format.channelCount, format.sampleRate);
+            timeFilter.setSpeed(1.2);
+            timeFilter.setPitch(1f);
+            //apply those fucking things
+            builder.addFirst(lowPass);
+            builder.addFirst(timeFilter);
 
-            FloatPcmAudioFilter audioFilter = new LowPassPcmAudioFilter(output, format.channelCount, format.sampleRate);
-            ((TimescalePcmAudioFilter)audioFilter).setSpeed(1.25); //1.5x normal speed
-
-
-            ((LowPassPcmAudioFilter)audioFilter).setSmoothing((float) input); //1.5x normal speed
-
-
-
-            return Collections.singletonList(audioFilter);
+            return builder.build(null, format.channelCount).filters;
         });
 
         guildMusicManager.player.getPlayingTrack().setPosition(guildMusicManager.player.getPlayingTrack().getPosition());

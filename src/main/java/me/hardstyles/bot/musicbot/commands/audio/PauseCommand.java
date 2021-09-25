@@ -25,7 +25,6 @@ public class PauseCommand extends Command {
         GuildMusicManager s = bot.getAudioHandler().getMusicManagers().get(e.getGuild().getIdLong());
         if(s == null || s.player == null || s.player.getPlayingTrack() == null){
             e.reply(bot.getEmbedFactory().error(e,"There's no track playing which means I can't pause/resume it.").build()).queue();
-
             return;
         }
         bot.getAudioHandler().pauseTrack(e);

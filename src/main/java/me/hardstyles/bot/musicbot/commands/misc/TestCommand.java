@@ -13,19 +13,11 @@ public class TestCommand extends Command {
     public TestCommand(Bot bot) {
         super("test", Permission.ADMINISTRATOR, null, Category.ADMIN, "a simple test command.", null);
         this.bot = bot;
-        this.bot.getCommandManager().register(this);
+        bot.getCommandManager().register(this);
     }
 
     @Override
     public void execute(CommandContext e) {
-
-        GuildObj o = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
-        if (o == null) {
-            bot.getGuildSettingsHandler().read();
-        }
-        GuildObj guildObj = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
-        e.reply("test value: " + guildObj.getPrefix()).queue();
+        e.reply("test").queue();
     }
-
-
 }

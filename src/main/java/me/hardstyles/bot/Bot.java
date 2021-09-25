@@ -70,7 +70,7 @@ public class Bot {
         new ForwardCommand(this);
         new VolumeCommand(this);
         new SpeedCommand(this);
-new VibratoCommand(this);
+        new VibratoCommand(this);
         new PingCommand(this);
         new AvatarCommand(this);
         new HelpCommand(this);

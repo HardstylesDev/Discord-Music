@@ -7,6 +7,7 @@ import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
 import me.hardstyles.bot.base.commands.impl.input.impl.NumberInput;
 import net.dv8tion.jda.api.Permission;
+@SuppressWarnings("unused")
 
 public class ClearCommand extends Command {
     private final Bot bot;

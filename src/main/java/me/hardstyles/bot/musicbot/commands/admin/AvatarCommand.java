@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Icon;
 
 import java.net.URL;
-
+@SuppressWarnings("unused")
 public class AvatarCommand extends Command {
     private final Bot bot;
 

@@ -6,6 +6,7 @@ import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
 import net.dv8tion.jda.api.Permission;
+@SuppressWarnings("unused")
 
 public class PauseCommand extends Command {
     private final Bot bot;

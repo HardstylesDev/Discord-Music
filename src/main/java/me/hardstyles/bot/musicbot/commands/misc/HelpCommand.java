@@ -7,6 +7,7 @@ import me.hardstyles.bot.base.commands.impl.CommandContext;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import org.apache.commons.lang3.StringUtils;
+@SuppressWarnings("unused")
 
 public class HelpCommand extends Command {
     private final Bot bot;

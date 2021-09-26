@@ -18,7 +18,7 @@ public class VibratoCommand extends Command {
     private final Bot bot;
 
     public VibratoCommand(Bot bot) {
-        super("vibrate", Permission.MESSAGE_READ, new String[]{"vib"}, Category.MUSIC, "Set the speed of the music player.", null);
+        super("vibrate", Permission.MESSAGE_READ, new String[]{"dont_use_this"}, Category.MUSIC, "TEST COMMAND!!!!", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
         this.getSlashOptions().add(new OptionData(OptionType.INTEGER, "value", "The value of the bassbooster."));

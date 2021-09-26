@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.Permission;
 
 import java.util.ArrayList;
 import java.util.Collections;
+@SuppressWarnings("unused")
 
 public class ShuffleCommand extends Command {
     private final Bot bot;

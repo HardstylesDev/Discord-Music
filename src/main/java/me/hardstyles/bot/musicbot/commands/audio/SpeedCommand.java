@@ -21,7 +21,7 @@ public class SpeedCommand extends Command {
         super("speed", Permission.MESSAGE_READ, new String[]{"setspeed"}, Category.MUSIC, "Set the speed of the music player.", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
-        this.getSlashOptions().add(new OptionData(OptionType.NUMBER, "speed", "The value of the bassbooster."));
+        this.getSlashOptions().add(new OptionData(OptionType.NUMBER, "speed", "The speed"));
         this.getSlashOptions().add(new OptionData(OptionType.NUMBER, "pitch", "The pitch"));
     }
 

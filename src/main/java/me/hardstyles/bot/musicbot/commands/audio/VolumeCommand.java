@@ -10,13 +10,14 @@ import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+@SuppressWarnings("unused")
 
 public class VolumeCommand extends Command {
     private final Bot bot;
 
     public VolumeCommand(Bot bot) {
         super("volume", Permission.MESSAGE_READ, new String[]{"setvolume"}, Category.MUSIC, "Set the volume your input (1-100)", null);
-        this.getOptions().add(new OptionData(OptionType.INTEGER, "value", "Volume"));
+        this.getSlashOptions().add(new OptionData(OptionType.INTEGER, "value", "Volume"));
         this.bot = bot;
         this.bot.getCommandManager().register(this);
 

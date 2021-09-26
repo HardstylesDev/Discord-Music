@@ -10,13 +10,14 @@ import me.hardstyles.bot.base.commands.impl.input.impl.NumberInput;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+@SuppressWarnings("unused")
 
 public class ForwardCommand extends Command {
     private final Bot bot;
 
     public ForwardCommand(Bot bot) {
         super("forward", Permission.MESSAGE_READ,new String[]{"skipto"}, Category.MUSIC,"Forward into the track. e.x /forward 20 skips 20s", null);
-        this.getOptions().add(new OptionData(OptionType.INTEGER, "value", "The seconds to jump to"));
+        this.getSlashOptions().add(new OptionData(OptionType.INTEGER, "value", "The seconds to jump to"));
         this.bot = bot;
         this.bot.getCommandManager().register(this);
 

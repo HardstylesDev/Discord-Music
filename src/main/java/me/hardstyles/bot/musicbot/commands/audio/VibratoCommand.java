@@ -12,6 +12,7 @@ import me.hardstyles.bot.base.commands.impl.input.impl.NumberInput;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+@SuppressWarnings("unused")
 
 public class VibratoCommand extends Command {
     private final Bot bot;
@@ -20,7 +21,7 @@ public class VibratoCommand extends Command {
         super("vibrate", Permission.MESSAGE_READ, new String[]{"vib"}, Category.MUSIC, "Set the speed of the music player.", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
-        this.getOptions().add(new OptionData(OptionType.INTEGER, "value", "The value of the bassbooster."));
+        this.getSlashOptions().add(new OptionData(OptionType.INTEGER, "value", "The value of the bassbooster."));
     }
 
     private static final float[] BASS_BOOST = {0.2f, 0.15f, 0.1f, 0.05f, 0.0f, -0.05f, -0.1f, -0.1f, -0.1f, -0.1f, -0.1f,

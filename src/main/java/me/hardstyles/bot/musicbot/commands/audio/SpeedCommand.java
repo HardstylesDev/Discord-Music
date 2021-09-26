@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.Collections;
+@SuppressWarnings("unused")
 
 public class SpeedCommand extends Command {
     private final Bot bot;
@@ -20,8 +21,8 @@ public class SpeedCommand extends Command {
         super("speed", Permission.MESSAGE_READ, new String[]{"setspeed"}, Category.MUSIC, "Set the speed of the music player.", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
-        this.getOptions().add(new OptionData(OptionType.NUMBER, "speed", "The value of the bassbooster."));
-        this.getOptions().add(new OptionData(OptionType.NUMBER, "pitch", "The pitch"));
+        this.getSlashOptions().add(new OptionData(OptionType.NUMBER, "speed", "The value of the bassbooster."));
+        this.getSlashOptions().add(new OptionData(OptionType.NUMBER, "pitch", "The pitch"));
     }
 
 

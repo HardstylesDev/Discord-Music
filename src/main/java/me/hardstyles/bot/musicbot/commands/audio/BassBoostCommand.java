@@ -1,6 +1,5 @@
 package me.hardstyles.bot.musicbot.commands.audio;
 
-import com.github.natanbc.lavadsp.timescale.TimescalePcmAudioFilter;
 import com.sedmelluq.discord.lavaplayer.filter.equalizer.EqualizerFactory;
 import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.audio.GuildMusicManager;
@@ -11,8 +10,7 @@ import me.hardstyles.bot.base.commands.impl.input.impl.NumberInput;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-
-import java.util.Collections;
+@SuppressWarnings("unused")
 
 public class BassBoostCommand extends Command {
     private final Bot bot;
@@ -21,7 +19,7 @@ public class BassBoostCommand extends Command {
         super("bassboost", Permission.MESSAGE_READ, new String[]{"bb", "bass"}, Category.MUSIC, "Enable the bass booster.", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
-        this.getOptions().add(new OptionData(OptionType.INTEGER, "value", "The value of the bassbooster."));
+        this.getSlashOptions().add(new OptionData(OptionType.INTEGER, "value", "The value of the bassbooster."));
     }
 
     private static final float[] BASS_BOOST = {0.2f, 0.15f, 0.1f, 0.05f, 0.0f, -0.05f, -0.1f, -0.1f, -0.1f, -0.1f, -0.1f,

@@ -17,7 +17,7 @@ public class Command {
     private String[] aliases;
     private Category category;
     private String description;
-    private HashSet<OptionData> options;
+    private HashSet<OptionData> slashOptions;
 
     public Command(String name, Permission requiredPermission, String[] aliases, Category category, String description, HashSet<OptionData> options) {
         this.name = name;
@@ -25,11 +25,11 @@ public class Command {
         this.aliases = aliases;
         this.category = category;
         this.description = description;
-        this.options = new HashSet<>();
+        this.slashOptions = new HashSet<>();
     }
 
     public HashSet<CommandData> toCommand() {
-        if (options.isEmpty()) {
+        if (slashOptions.isEmpty()) {
             HashSet<CommandData> hash = new HashSet<>();
             if (aliases != null && aliases.length > 0) {
                 for (String alias : aliases) {
@@ -42,10 +42,10 @@ public class Command {
         HashSet<CommandData> hash = new HashSet<>();
         if (aliases != null && aliases.length > 0) {
             for (String alias : aliases) {
-                hash.add(new CommandData(alias, description).addOptions(options));
+                hash.add(new CommandData(alias, description).addOptions(slashOptions));
             }
         }
-        hash.add(new CommandData(name, description).addOptions(options));
+        hash.add(new CommandData(name, description).addOptions(slashOptions));
         return hash;
     }
 

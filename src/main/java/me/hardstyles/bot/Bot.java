@@ -9,13 +9,6 @@ import me.hardstyles.bot.base.guild.GuildManager;
 import me.hardstyles.bot.base.guild.GuildSettingsHandler;
 import me.hardstyles.bot.base.spotify.SpotifyAPI;
 import me.hardstyles.bot.base.util.VoiceCheck;
-import me.hardstyles.bot.musicbot.commands.admin.AvatarCommand;
-import me.hardstyles.bot.musicbot.commands.admin.PrefixCommand;
-import me.hardstyles.bot.musicbot.commands.admin.SettingsCommand;
-import me.hardstyles.bot.musicbot.commands.audio.*;
-import me.hardstyles.bot.musicbot.commands.misc.HelpCommand;
-import me.hardstyles.bot.musicbot.commands.misc.PingCommand;
-import me.hardstyles.bot.musicbot.commands.misc.TestCommand;
 import me.hardstyles.bot.musicbot.event.EventListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -53,28 +46,8 @@ public class Bot {
         voiceCheck = new VoiceCheck();
         registerManagers();
 
-        startBot();
+        loadBot();
 
-
-        new PlayCommand(this);
-        new TestCommand(this);
-        new StopCommand(this);
-        new PrefixCommand(this);
-        new ClearCommand(this);
-        new SettingsCommand(this);
-        new LoopCommand(this);
-        new PauseCommand(this);
-        new SkipCommand(this);
-        new QueueCommand(this);
-        new BassBoostCommand(this);
-        new ForwardCommand(this);
-        new VolumeCommand(this);
-        new SpeedCommand(this);
-        new VibratoCommand(this);
-        new PingCommand(this);
-        new AvatarCommand(this);
-        new HelpCommand(this);
-        new ShuffleCommand(this);
         this.guildSettingsHandler = new GuildSettingsHandler(this);
 
 
@@ -83,28 +56,22 @@ public class Bot {
 
     private void registerManagers() {
         commandManager = new CommandManager(this);
+        commandManager.initialize();
         embedFactory = new EmbedFactory(this);
         audioHandler = new CustomAudioHandler(this);
+
     }
 
-    private void startBot() {
-        System.out.println("[SYSTEM]: Loading...");
-        long milis = System.currentTimeMillis();
+    private void loadBot() {
         try {
             this.shardManager = DefaultShardManagerBuilder.createDefault(getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES).setStatus(OnlineStatus.ONLINE).enableCache(CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY).setMemberCachePolicy(MemberCachePolicy.ALL).setShardsTotal(1).enableCache(CacheFlag.MEMBER_OVERRIDES).setActivity(Activity.listening("TheBlitzBot.com")).addEventListeners(new EventListener(this)).build();
-            JDA jda = null;
-            jda.updateCommands().queue();
         } catch (Exception ignored) {
         }
-        long milis2 = System.currentTimeMillis();
-        long diff = milis2 - milis;
-        System.out.println("[SYSTEM]: Bot loaded, time: " + diff + "ms");
-    }
-
-    public static void main(String[] args) {
-        new Bot();
+        System.out.println("Bot online");
 
     }
+
+
 
     private String getToken() {
         try {
@@ -116,5 +83,7 @@ public class Bot {
         }
         return null;
     }
-
+    public static void main(String[] args) {
+        new Bot();
+    }
 }

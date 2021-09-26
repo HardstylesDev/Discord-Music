@@ -1,11 +1,15 @@
 package me.hardstyles.bot.base.commands;
 
 
+import io.github.classgraph.ClassGraph;
 import lombok.Getter;
+import lombok.SneakyThrows;
+import lombok.var;
 import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
 
+import java.lang.reflect.Constructor;
 import java.util.HashSet;
 
 @Getter
@@ -13,26 +17,34 @@ public class CommandManager {
     private final Bot bot;
 
     private final HashSet<Command> commands;
-    public CommandManager(Bot bot){
+
+    public CommandManager(Bot bot) {
         this.bot = bot;
         this.commands = new HashSet<>();
-
-
-
-
     }
 
-    public final HashSet<Command> get(Category c){
+    @SneakyThrows
+    public void initialize() {
+        Class<?> type = Bot.class;
+        var result = new ClassGraph().acceptPackages("me.hardstyles.bot.musicbot.commands").scan();
+        for (var cls : result.getAllClasses()) {
+            var loadClass = cls.loadClass();
+            Constructor<?> cons = loadClass.getConstructor(type);
+            cons.newInstance(bot);
+        }
+    }
+
+    public final HashSet<Command> get(Category c) {
         HashSet<Command> cmd = new HashSet<>();
         for (Command command : commands) {
-            if(command.getCategory() == c){
+            if (command.getCategory() == c) {
                 cmd.add(command);
             }
         }
         return cmd;
     }
-    public void register(Command command){
+
+    public void register(Command command) {
         this.commands.add(command);
     }
-
 }

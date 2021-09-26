@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import java.util.ArrayList;
+@SuppressWarnings("unused")
 
 public class PlayCommand extends Command {
     private final Bot bot;
@@ -17,7 +18,7 @@ public class PlayCommand extends Command {
     public PlayCommand(Bot bot) {
         super("play", Permission.MESSAGE_READ, new String[]{"p", "add"}, Category.MUSIC, "Add a song to the queue", null);
 
-        this.getOptions().add(new OptionData(OptionType.STRING, "song", "The URL/name of the song you'd like to play/add to the queue").setRequired(true));
+        this.getSlashOptions().add(new OptionData(OptionType.STRING, "song", "The URL/name of the song you'd like to play/add to the queue").setRequired(true));
 
         this.bot = bot;
         this.bot.getCommandManager().register(this);

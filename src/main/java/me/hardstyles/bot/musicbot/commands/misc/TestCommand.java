@@ -6,7 +6,7 @@ import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
 import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.Permission;
-
+@SuppressWarnings("unused")
 public class TestCommand extends Command {
     private final Bot bot;
 

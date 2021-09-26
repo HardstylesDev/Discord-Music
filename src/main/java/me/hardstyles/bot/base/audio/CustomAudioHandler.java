@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+@SuppressWarnings("unused")
 
 public class CustomAudioHandler {
 
@@ -162,7 +163,6 @@ public class CustomAudioHandler {
 
 
     public void loadPlaylist(final CommandContext msg, final String[] titles) {
-        System.out.println("Called with " + titles.length + " titles");
         if (!msg.getGuild().getAudioManager().isConnected() && !msg.getGuild().getAudioManager().isAttemptingToConnect()) {
             if (msg.getMember().getVoiceState().getChannel() == null) {
                 msg.reply(bot.getEmbedFactory().simple(msg.getGuild(), "Not connected", "You're not connected to a channel!").build()).queue();

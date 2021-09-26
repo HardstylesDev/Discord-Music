@@ -9,6 +9,7 @@ import me.hardstyles.bot.base.commands.impl.CommandContext;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+@SuppressWarnings("unused")
 
 public class QueueCommand extends Command {
     private final Bot bot;
@@ -16,7 +17,7 @@ public class QueueCommand extends Command {
     public QueueCommand(Bot bot) {
         super("queue", Permission.UNKNOWN, new String[]{"listsongs", "songs"}, Category.MUSIC, "List the tracks in the queue", null);
         this.bot = bot;
-        this.getOptions().add(new OptionData(OptionType.STRING, "clear", "Clears the queue").addChoice("Clear", "Clear"));
+        this.getSlashOptions().add(new OptionData(OptionType.STRING, "clear", "Clears the queue").addChoice("Clear", "Clear"));
         this.bot.getCommandManager().register(this);
     }
 

@@ -42,7 +42,7 @@ dependencies {
     implementation "mysql:mysql-connector-java:8.0.21"
     compile group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5'
 
-
+    implementation group: 'io.github.classgraph', name: 'classgraph', version: '4.8.116'
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 

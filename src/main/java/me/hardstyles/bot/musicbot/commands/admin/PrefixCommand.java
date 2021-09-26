@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+@SuppressWarnings("unused")
 
 public class PrefixCommand extends Command {
     private final Bot bot;
@@ -17,7 +18,7 @@ public class PrefixCommand extends Command {
     public PrefixCommand(Bot bot) {
         super("prefix", Permission.ADMINISTRATOR, new String[]{"setprefix"}, Category.ADMIN, "Change the prefix in this server", null);
         this.bot = bot;
-        this.getOptions().add(new OptionData(OptionType.STRING, "new_prefix", "The new prefix").setRequired(true));
+        this.getSlashOptions().add(new OptionData(OptionType.STRING, "new_prefix", "The new prefix").setRequired(true));
         this.bot.getCommandManager().register(this);
     }
 

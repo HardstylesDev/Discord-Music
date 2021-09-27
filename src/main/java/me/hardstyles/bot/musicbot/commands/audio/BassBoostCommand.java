@@ -45,9 +45,11 @@ public class BassBoostCommand extends Command {
 
         EqualizerFactory equalizer = new EqualizerFactory();
         for (int i = 0; i < BASS_BOOST.length; i++) {
-            equalizer.setGain(i, (float) (BASS_BOOST[i] + (input / 100)));
+            equalizer.setGain(i, (float) (BASS_BOOST[i] + (input / 1000)));
         }
         guildMusicManager.player.setFilterFactory(equalizer);
+        guildMusicManager.player.getPlayingTrack().setPosition(guildMusicManager.player.getPlayingTrack().getPosition());
+
         e.reply("Bass boost set to " + input).queue();
     }
 }

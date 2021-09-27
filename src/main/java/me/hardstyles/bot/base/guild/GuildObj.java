@@ -1,7 +1,7 @@
 package me.hardstyles.bot.base.guild;
 
 import com.github.natanbc.lavadsp.timescale.TimescalePcmAudioFilter;
-import com.sedmelluq.discord.lavaplayer.filter.equalizer.EqualizerFactory;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import lombok.Getter;
 import lombok.Setter;
 import me.hardstyles.bot.Bot;
@@ -24,6 +24,8 @@ public class GuildObj {
     private final String id;
 
 
+    private AudioTrack lastQueued;
+
     private final TimescalePcmAudioFilter equalizer;
     private final PrefixSetting prefixSetting;
     private final VolumeSetting volumeSetting;
@@ -36,11 +38,12 @@ public class GuildObj {
         this.bot = bot;
         this.id = id;
 
-        this.settings = new HashSet<>();
-        this.prefixSetting = new PrefixSetting(bot, "prefix");
-        this.chatTypeSetting = new ChatTypeSetting(bot, "chatType");
-        this.volumeSetting = new VolumeSetting(bot, "volume");
-        this.equalizer = null;
+        settings = new HashSet<>();
+        prefixSetting = new PrefixSetting(bot, "prefix");
+        chatTypeSetting = new ChatTypeSetting(bot, "chatType");
+        volumeSetting = new VolumeSetting(bot, "volume");
+        equalizer = null;
+        lastQueued = null;
         settings.addAll(Arrays.asList(prefixSetting, chatTypeSetting, volumeSetting));
 
 

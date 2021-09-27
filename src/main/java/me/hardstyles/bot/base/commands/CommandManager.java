@@ -2,6 +2,8 @@ package me.hardstyles.bot.base.commands;
 
 
 import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
+import io.github.classgraph.ScanResult;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.var;
@@ -26,9 +28,9 @@ public class CommandManager {
     @SneakyThrows
     public void initialize() {
         Class<?> type = Bot.class;
-        var result = new ClassGraph().acceptPackages("me.hardstyles.bot.musicbot.commands").scan();
-        for (var cls : result.getAllClasses()) {
-            var loadClass = cls.loadClass();
+        ScanResult result = new ClassGraph().acceptPackages("me.hardstyles.bot.musicbot.commands").scan();
+        for (ClassInfo cls : result.getAllClasses()) {
+            Class<?> loadClass = cls.loadClass();
             Constructor<?> cons = loadClass.getConstructor(type);
             cons.newInstance(bot);
         }

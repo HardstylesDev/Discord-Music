@@ -10,7 +10,6 @@ import me.hardstyles.bot.base.guild.GuildSettingsHandler;
 import me.hardstyles.bot.base.spotify.SpotifyAPI;
 import me.hardstyles.bot.base.util.VoiceCheck;
 import me.hardstyles.bot.musicbot.event.EventListener;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -21,6 +20,8 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 @Getter
@@ -72,7 +73,6 @@ public class Bot {
     }
 
 
-
     private String getToken() {
         try {
             File file = new File("Token.txt");
@@ -83,7 +83,8 @@ public class Bot {
         }
         return null;
     }
-    public static void main(String[] args) {
-        new Bot();
+
+    public static void main(String[] args) throws Exception {
+         new Bot();
     }
 }

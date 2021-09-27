@@ -11,12 +11,14 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
+import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @SuppressWarnings("unused")
 
 public class CustomAudioHandler {
@@ -95,6 +97,8 @@ public class CustomAudioHandler {
             public void trackLoaded(AudioTrack track) {
                 bot.getEmbedFactory().added(msg, track);
                 play(musicManager, track);
+                GuildObj guildObj = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+                guildObj.setLastQueued(track);
             }
 
             @Override
@@ -108,15 +112,22 @@ public class CustomAudioHandler {
                 if (isPlaylist) {
                     List<AudioTrack> playlistTracks = playlist.getTracks();
                     play(musicManager, firstTrack);
+
                     playlistTracks.remove(firstTrack);
-                    playlist.getTracks().forEach(audioTrack -> play(musicManager, audioTrack));
+                    GuildObj guildObj = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+
+                    playlist.getTracks().forEach(audioTrack -> {
+                        play(musicManager, audioTrack);
+                        guildObj.setLastQueued(audioTrack);
+                    });
                     msg.reply(bot.getEmbedFactory().addedPlaylist(msg, playlist).build()).queue();
 
 
                 } else {
                     play(musicManager, firstTrack);
                     bot.getEmbedFactory().added(msg, firstTrack);
-
+                    GuildObj guildObj = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+                    guildObj.setLastQueued(firstTrack);
 
                 }
 
@@ -180,11 +191,13 @@ public class CustomAudioHandler {
 
         String searchType = "ytsearch: ";
         for (String trackUrl : titles) {
-            playerManager.loadItemOrdered(musicManager, searchType+trackUrl, new AudioLoadResultHandler() {
+            playerManager.loadItemOrdered(musicManager, searchType + trackUrl, new AudioLoadResultHandler() {
                 @Override
                 public void trackLoaded(AudioTrack track) {
                     msg.reply(bot.getEmbedFactory().addedPlaylist(msg, titles).build()).queue();
                     play(musicManager, track);
+                    GuildObj guildObj = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+                    guildObj.setLastQueued(track);
                 }
 
                 @Override
@@ -194,6 +207,8 @@ public class CustomAudioHandler {
                         firstTrack = playlist.getTracks().get(0);
                     }
                     play(musicManager, firstTrack);
+                    GuildObj guildObj = bot.getGuildManager().getGuildFromId(msg.getGuild().getId());
+                    guildObj.setLastQueued(firstTrack);
                 }
 
                 @Override

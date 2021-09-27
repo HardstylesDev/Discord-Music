@@ -12,8 +12,10 @@ import com.wrapper.spotify.requests.authorization.client_credentials.ClientCrede
 import com.wrapper.spotify.requests.data.tracks.GetTrackRequest;
 import me.hardstyles.bot.Bot;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SpotifyAPI {
     private final Bot bot;
@@ -87,8 +89,8 @@ public class SpotifyAPI {
         return null;
     }
 
-    private static final String clientId = "e5a9e8bf3c464534b5f0a9f7e5828c20";
-    private static final String clientSecret = "1d657e02eb3744f995ff6ea67ee3f66f";
+    private static final String clientId = getSpotifyId();
+    private static final String clientSecret = getSpotifySecret();
 
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(clientId)
@@ -111,5 +113,25 @@ public class SpotifyAPI {
         }
     }
 
+    private static String getSpotifySecret() {
+        try {
+            File file = new File("SpotifySecret.txt");
+            Scanner scanner = new Scanner(file);
+            return scanner.next();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    private static String getSpotifyId() {
+        try {
+            File file = new File("SpotifyId.txt");
+            Scanner scanner = new Scanner(file);
+            return scanner.next();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.checkerframework.checker.nullness.Opt;
 
 import java.util.HashSet;
 
@@ -25,27 +26,18 @@ public class Command {
         this.aliases = aliases;
         this.category = category;
         this.description = description;
-        this.slashOptions = new HashSet<>();
+        this.slashOptions = options == null ? new HashSet<>() : options;
+
     }
 
     public HashSet<CommandData> toCommand() {
-        if (slashOptions.isEmpty()) {
-            HashSet<CommandData> hash = new HashSet<>();
-            if (aliases != null && aliases.length > 0) {
-                for (String alias : aliases) {
-                    hash.add(new CommandData(alias, description));
-                }
-            }
-            hash.add(new CommandData(name, description));
-            return hash;
-        }
         HashSet<CommandData> hash = new HashSet<>();
         if (aliases != null && aliases.length > 0) {
             for (String alias : aliases) {
-                hash.add(new CommandData(alias, description).addOptions(slashOptions));
+                hash.add(slashOptions.isEmpty() ? new CommandData(alias, description) : new CommandData(alias, description).addOptions(slashOptions));
             }
         }
-        hash.add(new CommandData(name, description).addOptions(slashOptions));
+        hash.add(new CommandData(name, description));
         return hash;
     }
 

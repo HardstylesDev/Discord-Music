@@ -14,11 +14,9 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -49,7 +47,7 @@ public class EventListener extends ListenerAdapter {
         if ((message.getContentRaw().startsWith(prefix) && !author.isBot())) {
             String content;
             if (!message.getMentionedMembers().isEmpty() && message.getContentRaw().split(" ")[0].equalsIgnoreCase(message.getMentionedMembers().get(0).getAsMention())) {
-                content = message.getContentRaw().substring(message.getMentionedMembers().get(0).getAsMention().length() );
+                content = message.getContentRaw().substring(message.getMentionedMembers().get(0).getAsMention().length());
             } else {
                 content = message.getContentRaw().substring(prefix.length());
             }
@@ -106,6 +104,8 @@ public class EventListener extends ListenerAdapter {
                         handleSlashCommand(event, command);
                     }
                 }
+
+
             }
         }
     }

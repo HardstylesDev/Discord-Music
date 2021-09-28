@@ -1,6 +1,7 @@
 package me.hardstyles.bot.base.guild;
 
 import com.github.natanbc.lavadsp.timescale.TimescalePcmAudioFilter;
+import com.sedmelluq.discord.lavaplayer.filter.AudioFilter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +12,7 @@ import me.hardstyles.bot.base.guild.guildSettings.impl.PrefixSetting;
 import me.hardstyles.bot.base.guild.guildSettings.impl.VolumeSetting;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 @Setter
 @Getter
@@ -25,6 +25,7 @@ public class GuildObj {
 
 
     private AudioTrack lastQueued;
+    private List<AudioFilter> filterList = new ArrayList<>();
 
     private final TimescalePcmAudioFilter equalizer;
     private final PrefixSetting prefixSetting;

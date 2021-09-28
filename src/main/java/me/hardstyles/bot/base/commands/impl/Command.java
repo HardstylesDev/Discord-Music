@@ -37,7 +37,7 @@ public class Command {
                 hash.add(slashOptions.isEmpty() ? new CommandData(alias, description) : new CommandData(alias, description).addOptions(slashOptions));
             }
         }
-        hash.add(new CommandData(name, description));
+        hash.add(slashOptions.isEmpty() ? new CommandData(name, description) : new CommandData(name, description).addOptions(slashOptions));
         return hash;
     }
 

@@ -39,7 +39,6 @@ public class SpotifyAPI {
             builder.append(artist.getName()).append(" ");
         }
         builder.append(" ").append(track.getName());
-
         return builder.toString();
     }
 
@@ -104,11 +103,7 @@ public class SpotifyAPI {
             lastGen = System.currentTimeMillis();
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
-
-            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
-        } catch (IOException | SpotifyWebApiException e) {
-            System.out.println("Error: " + e.getMessage());
-        } catch (org.apache.hc.core5.http.ParseException e) {
+        } catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e) {
             e.printStackTrace();
         }
     }

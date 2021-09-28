@@ -1,5 +1,6 @@
 package me.hardstyles.bot.musicbot.commands.audio;
 
+import com.github.natanbc.lavadsp.distortion.DistortionPcmAudioFilter;
 import com.sedmelluq.discord.lavaplayer.filter.equalizer.EqualizerFactory;
 import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.audio.GuildMusicManager;
@@ -7,9 +8,13 @@ import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
 import me.hardstyles.bot.base.commands.impl.CommandContext;
 import me.hardstyles.bot.base.commands.impl.input.impl.NumberInput;
+import me.hardstyles.bot.base.guild.GuildObj;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+
+import java.util.Arrays;
+
 @SuppressWarnings("unused")
 
 public class BassBoostCommand extends Command {
@@ -43,11 +48,23 @@ public class BassBoostCommand extends Command {
             return;
         }
 
+        GuildObj guildObj = bot.getGuildManager().getGuildFromId(e.getGuild().getId());
         EqualizerFactory equalizer = new EqualizerFactory();
         for (int i = 0; i < BASS_BOOST.length; i++) {
             equalizer.setGain(i, (float) (BASS_BOOST[i] + (input / 1000)));
         }
         guildMusicManager.player.setFilterFactory(equalizer);
+
+        guildMusicManager.player.setFilterFactory((track, format, output) -> {
+
+
+           // return Collections.list(guildObj.getFilters();
+
+            return null;
+        });
+
+
+
         guildMusicManager.player.getPlayingTrack().setPosition(guildMusicManager.player.getPlayingTrack().getPosition());
 
         e.reply("Bass boost set to " + input).queue();

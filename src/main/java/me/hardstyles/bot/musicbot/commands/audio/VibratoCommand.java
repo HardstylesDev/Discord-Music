@@ -57,6 +57,8 @@ public class VibratoCommand extends Command {
            tremolo.setOffset((float) input);
 
             return Arrays.asList( tremolo);
+
+
         });
 
         guildMusicManager.player.getPlayingTrack().setPosition(guildMusicManager.player.getPlayingTrack().getPosition());

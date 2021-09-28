@@ -6,7 +6,6 @@ import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ScanResult;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import lombok.var;
 import me.hardstyles.bot.Bot;
 import me.hardstyles.bot.base.commands.impl.Category;
 import me.hardstyles.bot.base.commands.impl.Command;
@@ -44,6 +43,23 @@ public class CommandManager {
             }
         }
         return cmd;
+    }
+
+    public Command getCommand(String name) {
+        for (Command command : bot.getCommandManager().getCommands()) {
+            if (command.getName().equalsIgnoreCase(name)) {
+                return command;
+            }
+            if (command.getAliases() != null) {
+                for (String alias : command.getAliases()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        return command;
+
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public void register(Command command) {

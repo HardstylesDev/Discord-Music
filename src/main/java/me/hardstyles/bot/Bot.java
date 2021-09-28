@@ -26,6 +26,7 @@ import java.util.Scanner;
 
 @Getter
 public class Bot {
+
     public static Bot instance = null;
     private CommandManager commandManager;
 

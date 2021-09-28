@@ -61,7 +61,7 @@ public class SpeedCommand extends Command {
         });
         guildMusicManager.player.getPlayingTrack().setPosition(guildMusicManager.player.getPlayingTrack().getPosition());
 
-        e.reply(bot.getEmbedFactory().msg(e, "Speed changed!", "Speed: `" + speed + (pitch != -9999 ? "`, Pitch: `" + pitch + "`" : "`") + (vaporwave ? " Semitones enabled" : "")).build()).queue();
+        e.reply(bot.getEmbedFactory().msg(e, "Speed changed!", "Speed: `" + speed + (pitch != -9999 ? "`, Pitch: `" + pitch + "`" : "`") + (vaporwave ? " (PitchSemiTones)" : "")).build()).queue();
 
     }
 }

@@ -16,7 +16,6 @@ public class BooleanInput extends Input {
     }
 
     public boolean value(String name) {
-        System.out.println("isSet: " + this.isSet(name));
         if (this.isSet(name)) {
             if (cxt.isSlash()) {
                 if (cxt.getSlashEvent().getOption(name).getType() == OptionType.BOOLEAN) {

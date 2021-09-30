@@ -57,7 +57,6 @@ public class SpotifyAPI {
 
     public Track getTrack(String id) {
         this.invalidCheck();
-        System.out.println("Passed id" + id);
         GetTrackRequest trackRequest = spotifyApi.getTrack(id)
                 .market(CountryCode.US)
                 .build();

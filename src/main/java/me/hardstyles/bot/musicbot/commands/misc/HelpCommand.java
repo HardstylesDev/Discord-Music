@@ -64,6 +64,7 @@ public class HelpCommand extends Command {
         }
         EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
         builder.setDescription(stringBuilder.toString());
+        builder.addField("Invite me:",String.format("https://discord.com/oauth2/authorize?client_id=%s&scope=applications.commands&scope=bot&permissions=8", e.getJda().getSelfUser().getId()) ,false);
         e.reply(builder.build()).queue();
     }
 }

@@ -90,8 +90,6 @@ public class CustomAudioHandler {
         }
 
         GuildMusicManager musicManager = getGuildAudioPlayer(msg.getGuild());
-        //musicManager.player.setFilterFactory(null);
-
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
@@ -107,8 +105,6 @@ public class CustomAudioHandler {
                 if (firstTrack == null) {
                     firstTrack = playlist.getTracks().get(0);
                 }
-
-
                 if (isPlaylist) {
                     List<AudioTrack> playlistTracks = playlist.getTracks();
                     play(musicManager, firstTrack);
@@ -136,7 +132,7 @@ public class CustomAudioHandler {
 
             @Override
             public void noMatches() {
-                msg.reply("Nothing found by " + trackUrl).queue();
+                msg.reply("Couldn't find any tracks matching `" + trackUrl + "`").queue();
             }
 
             @Override

@@ -34,7 +34,11 @@ public class PlayCommand extends Command {
                     String listId = urlA[urlA.length - 1].split("\\?")[0];
 
                     ArrayList<String> items = bot.getSpotifyApi().fuck(listId);
+                    if(items.isEmpty()){
+                        e.reply("List appears to be empty...").queue();
 
+                        return;
+                    }
                     bot.getAudioHandler().loadPlaylist(e, items.toArray(new String[0]));
                     e.reply(bot.getEmbedFactory().addedPlaylist(e, items.toArray(new String[0])).build()).queue();
                     return;

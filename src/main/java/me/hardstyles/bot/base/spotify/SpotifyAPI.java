@@ -65,6 +65,7 @@ public class SpotifyAPI {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Couldn't find that track.");
         return null;
     }
 
@@ -73,10 +74,11 @@ public class SpotifyAPI {
         try {
             ArrayList<String> list = new ArrayList<>();
             Playlist b = spotifyApi.getPlaylist(id).build().execute();
-            int limit = 16;
+            int limit = 31;
             for (PlaylistTrack item : b.getTracks().getItems()) {
                 limit--;
                 if (limit == 0) break;
+                if(item.getTrack() == null) continue;
                 Track track = getTrack(item.getTrack().getId());
                 list.add(simpleTrack(track));
             }
@@ -101,6 +103,7 @@ public class SpotifyAPI {
         try {
             lastGen = System.currentTimeMillis();
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
+            System.out.println("TOKEN: " + clientCredentials.getAccessToken());
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
         } catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e) {
             e.printStackTrace();

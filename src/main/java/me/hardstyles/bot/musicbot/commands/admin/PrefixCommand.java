@@ -35,9 +35,7 @@ public class PrefixCommand extends Command {
         }
 
         String newPrefix = e.isSlash() ? e.textInput("new_prefix") : e.getArgs()[0];
-
         obj.setPrefix(newPrefix);
-
         EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
         builder.setTitle("Prefix updated! ");
         builder.setDescription("The new prefix is `" + newPrefix + "`");

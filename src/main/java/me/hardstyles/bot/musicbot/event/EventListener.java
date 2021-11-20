@@ -40,7 +40,6 @@ public class EventListener extends ListenerAdapter {
     public final void onGuildMessageReceived(final @NotNull GuildMessageReceivedEvent e) {
         final Guild guild = e.getGuild();
         GuildObj guildObj = bot.getGuildManager().getGuildFromId(guild.getId());
-
         final String prefix = guildObj.getPrefix();
         final User author = e.getAuthor();
         final Message message = e.getMessage();

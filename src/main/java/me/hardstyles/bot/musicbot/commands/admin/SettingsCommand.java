@@ -20,7 +20,11 @@ public class SettingsCommand extends Command {
         super("settings", Permission.ADMINISTRATOR, new String[]{"config", "options"}, Category.ADMIN, "Change settings in this server", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
-        this.getSlashOptions().add(new OptionData(OptionType.STRING, "chat_type", "The chat type you'd like to use").addChoice("Default", "default").addChoice("Simple", "simple").addChoice("Emote", "reaction").setRequired(true));
+        this.getSlashOptions().add(new OptionData(OptionType.STRING, "chat_type"
+                , "The chat type you'd like to use")
+                .addChoice("Default", "default")
+                .addChoice("Simple", "simple")
+                .addChoice("Emote", "reaction").setRequired(true));
 
 
     }

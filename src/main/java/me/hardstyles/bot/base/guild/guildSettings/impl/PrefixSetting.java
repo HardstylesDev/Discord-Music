@@ -12,7 +12,7 @@ public class PrefixSetting extends Setting {
         this.bot = bot;
     }
 
-    private String prefix = ".";
+    private String prefix = "?";
 
     @Override
     public void set(String s) {
@@ -26,6 +26,6 @@ public class PrefixSetting extends Setting {
 
     @Override
     public String defaultValue(){
-        return ".";
+        return "?";
     }
 }

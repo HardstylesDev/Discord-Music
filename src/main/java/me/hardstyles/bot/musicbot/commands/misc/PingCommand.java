@@ -17,7 +17,7 @@ public class PingCommand extends Command {
 
     @Override
     public void execute(CommandContext e){
-        e.reply("My current ping is `" + e.getJda().getGatewayPing() + "`").queue();
+        e.reply("My current ping: `" + e.getJda().getGatewayPing() + "ms`").queue();
 
     }
 

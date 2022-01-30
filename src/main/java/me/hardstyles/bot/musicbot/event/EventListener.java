@@ -35,7 +35,6 @@ public class EventListener extends ListenerAdapter {
         return content.startsWith("<@" + id + ">") || content.startsWith("<@!" + id + ">");
     }
 
-
     @Override
     public final void onGuildMessageReceived(final @NotNull GuildMessageReceivedEvent e) {
         final Guild guild = e.getGuild();
@@ -120,12 +119,11 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public final void onReady(ReadyEvent event) {
-
         System.out.println("Ready event called.");
         CommandListUpdateAction commands = event.getJDA().updateCommands();
         for (Command cmd : bot.getCommandManager().getCommands()) {
             commands.addCommands(cmd.toCommand());
-            System.out.println(cmd.getName());
+            System.out.println("Registered a new command: " +  cmd.getName());
         }
         commands.queue();
 
@@ -135,7 +133,9 @@ public class EventListener extends ListenerAdapter {
     public final void onGuildVoiceLeave(GuildVoiceLeaveEvent e) {
         GuildMusicManager m = bot.getAudioHandler().getMusicManagers().get(e.getGuild().getIdLong());
         if (m == null || m.player == null || m.scheduler == null || e.getChannelLeft().getMembers().size() < 2) {
-            e.getGuild().getAudioManager().closeAudioConnection();
+            if (isAlone(e.getGuild())) {
+                e.getGuild().getAudioManager().closeAudioConnection();
+            }
         }
     }
 
@@ -143,8 +143,15 @@ public class EventListener extends ListenerAdapter {
     public final void onGuildVoiceMove(GuildVoiceMoveEvent e) {
         GuildMusicManager m = bot.getAudioHandler().getMusicManagers().get(e.getGuild().getIdLong());
         if (m == null || m.player == null || m.scheduler == null || e.getChannelLeft().getMembers().size() < 2) {
-            e.getGuild().getAudioManager().closeAudioConnection();
+            if (isAlone(e.getGuild())) {
+                e.getGuild().getAudioManager().closeAudioConnection();
+            }
         }
+    }
+
+    private boolean isAlone(Guild guild) {
+        if (guild.getAudioManager().getConnectedChannel() == null) return false;
+        return guild.getAudioManager().getConnectedChannel().getMembers().stream().noneMatch(x -> !x.getVoiceState().isDeafened() && !x.getUser().isBot());
     }
 
 }

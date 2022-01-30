@@ -19,6 +19,7 @@ public class Command {
     private Category category;
     private String description;
     private HashSet<OptionData> slashOptions;
+    private final int cooldown;
 
     public Command(String name, Permission requiredPermission, String[] aliases, Category category, String description, HashSet<OptionData> options) {
         this.name = name;
@@ -27,7 +28,7 @@ public class Command {
         this.category = category;
         this.description = description;
         this.slashOptions = options == null ? new HashSet<>() : options;
-
+        this.cooldown = 0;
     }
 
     public HashSet<CommandData> toCommand() {

@@ -12,12 +12,12 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 @SuppressWarnings("unused")
-public class SettingsCommand extends Command {
+public class ChatTypeCommand extends Command {
     private final Bot bot;
 
 
-    public SettingsCommand(Bot bot) {
-        super("settings", Permission.ADMINISTRATOR, new String[]{"config", "options"}, Category.ADMIN, "Change settings in this server", null);
+    public ChatTypeCommand(Bot bot) {
+        super("chattype", Permission.ADMINISTRATOR, new String[]{"messagetype"}, Category.ADMIN, "Change the format of outgoing messages", null);
         this.bot = bot;
         this.bot.getCommandManager().register(this);
         this.getSlashOptions().add(new OptionData(OptionType.STRING, "chat_type"
@@ -46,7 +46,14 @@ public class SettingsCommand extends Command {
         EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
         builder.setTitle("Chat Type updated! ");
         builder.setDescription("The new ChatType has been set to `" + type + "`");
-        guild.setChatType(ChatType.valueOf(type.toUpperCase()) + "");
+        ChatType correctType = null;
+        try {
+            correctType = ChatType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            e.reply("That is not a valid chat type!").queue();
+            return;
+        }
+        guild.setChatType(correctType + "");
         bot.getGuildSettingsHandler().write();
         e.reply(builder.build()).queue();
     }

@@ -57,14 +57,14 @@ public class HelpCommand extends Command {
     private void defaultHelp(CommandContext e) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Category value : Category.values()) {
-            stringBuilder.append("\n**").append(value.name()).append("**");
+            stringBuilder.append("\n\n**").append(value.name()).append("**");
             for (Command command : bot.getCommandManager().get(value)) {
                 stringBuilder.append("\n`").append(command.getName()).append("` | ").append(command.getDescription()).append(command.getAliases() == null ? "" : " | **Aliases:** `" + StringUtils.join(command.getAliases(), ", ") + "`");
             }
         }
         EmbedBuilder builder = bot.getEmbedFactory().coloredEmbed(e.getGuild());
         builder.setDescription(stringBuilder.toString());
-        builder.addField("Invite me:",String.format("https://discord.com/oauth2/authorize?client_id=%s&scope=applications.commands&scope=bot&permissions=8", e.getJda().getSelfUser().getId()) ,false);
+        builder.addField("Invite me to your own server:",String.format("[INVITE ME](https://discord.com/oauth2/authorize?client_id=%s&scope=applications.commands&scope=bot&permissions=8)", e.getJda().getSelfUser().getId()) ,false);
         e.reply(builder.build()).queue();
     }
 }

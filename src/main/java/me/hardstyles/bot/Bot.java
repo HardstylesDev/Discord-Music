@@ -68,8 +68,8 @@ public class Bot {
         try {
             this.shardManager = DefaultShardManagerBuilder.createDefault(getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES).setStatus(OnlineStatus.ONLINE).enableCache(CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY).setMemberCachePolicy(MemberCachePolicy.ALL).setShardsTotal(1).enableCache(CacheFlag.MEMBER_OVERRIDES).setActivity(Activity.listening("TheBlitzBot.com")).addEventListeners(new EventListener(this)).build();
         } catch (Exception ignored) {
-        }
-        System.out.println("Bot online");
+        
+        System.out.println("Bot started");
 
     }
 
